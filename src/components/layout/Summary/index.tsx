@@ -1,4 +1,4 @@
-import { SummaryCard } from "../shared/SummaryCard";
+import { SummaryCard } from "../../shared/SummaryCard";
 import { Container } from "./styles";
 
 export function Summary() {
