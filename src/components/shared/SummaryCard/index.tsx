@@ -1,16 +1,17 @@
+import { priceFormatter } from "@/utils/formatter";
 import {
   ArrowCircleDown,
   ArrowCircleUp,
   CurrencyDollar,
   IconProps,
 } from "phosphor-react";
+import { SummaryType } from "transactions";
 import { Box } from "./styles";
-
-type SummaryType = "income" | "outcome" | "total";
 
 interface SummaryBoxProps {
   type: SummaryType;
   variant?: "green";
+  price: number;
 }
 
 const defaultIconProps: IconProps = { size: 32 };
@@ -27,9 +28,10 @@ const icons = new Map<SummaryType, JSX.Element>([
   ["total", <CurrencyDollar {...defaultIconProps} color="#ffffff" />],
 ]);
 
-export function SummaryCard({ type, variant }: SummaryBoxProps) {
+export function SummaryCard({ type, variant, price }: SummaryBoxProps) {
   const option = options.get(type);
   const icon = icons.get(type);
+  const priceFormatted = priceFormatter(price);
 
   return (
     <Box variant={variant}>
@@ -38,7 +40,7 @@ export function SummaryCard({ type, variant }: SummaryBoxProps) {
         {icon}
       </header>
 
-      <strong>R$ 17.400,00</strong>
+      <strong>{priceFormatted}</strong>
     </Box>
   );
 }
