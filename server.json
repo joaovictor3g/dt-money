@@ -1,4 +1,4 @@
-{  
+{
   "transactions": [
     {
       "id": 1,
@@ -15,7 +15,70 @@
       "price": 50,
       "createdAt": "2022-08-15T18:37:43.089Z",
       "category": "Alimentação"
+    },
+    {
+      "category": "Desenvolvimento",
+      "description": "Desenvolvimento Mobile",
+      "price": 25000,
+      "type": "income",
+      "createdAt": "2022-08-19T22:28:24.455Z",
+      "id": 3
+    },
+    {
+      "category": "Comida",
+      "description": "Pastel",
+      "price": 5,
+      "type": "outcome",
+      "createdAt": "2022-08-19T22:40:26.245Z",
+      "id": 4
+    },
+    {
+      "category": "Comida",
+      "description": "Lasanha",
+      "price": 5,
+      "type": "outcome",
+      "createdAt": "2022-08-19T22:41:45.472Z",
+      "id": 5
+    },
+    {
+      "category": "Besteira",
+      "description": "Delicitios",
+      "price": 1.5,
+      "type": "outcome",
+      "createdAt": "2022-08-19T22:43:59.484Z",
+      "id": 6
+    },
+    {
+      "category": "asdada",
+      "description": "asdsa",
+      "price": 12,
+      "type": "outcome",
+      "createdAt": "2022-08-19T22:45:01.395Z",
+      "id": 7
+    },
+    {
+      "category": "1212",
+      "description": "adas",
+      "price": 12,
+      "type": "outcome",
+      "createdAt": "2022-08-19T22:48:15.567Z",
+      "id": 8
+    },
+    {
+      "category": "Besteira",
+      "description": "Besteirinha",
+      "price": 78,
+      "type": "outcome",
+      "createdAt": "2022-08-19T22:48:31.764Z",
+      "id": 9
+    },
+    {
+      "category": "Teste",
+      "description": "Teste",
+      "price": 12,
+      "type": "outcome",
+      "createdAt": "2022-08-19T22:49:24.782Z",
+      "id": 10
     }
   ]
 }
-

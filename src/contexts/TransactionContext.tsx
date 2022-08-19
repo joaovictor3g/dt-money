@@ -6,6 +6,7 @@ import { Transaction } from "transactions";
 interface TransactionContextType {
   transactions: Transaction[];
   fetchTransactions: (query?: string) => Promise<void>;
+  createTransaction: (transaction: Transaction) => Promise<void>;
 }
 
 interface TransactionProviderProps {
@@ -22,16 +23,44 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
       const response = await api.get<Transaction[]>("/transactions", {
         params: {
           q: query,
+          _sort: "createdAt",
+          _order: "desc",
         },
       });
 
       const parsedTransactions = response.data.map((data) => ({
         ...data,
         priceFormatted: priceFormatter(data.price),
-        dateFormatted: dateFormatter(new Date(data.createdAt)),
+        dateFormatted: dateFormatter(new Date(data?.createdAt ?? "")),
       }));
 
       setTransactions(parsedTransactions);
+    } catch {}
+  }
+
+  async function createTransaction(transaction: Transaction) {
+    const { category, description, price, type } = transaction;
+
+    try {
+      const response = await api.post<Transaction>("/transactions", {
+        category,
+        description,
+        price,
+        type,
+        createdAt: new Date(),
+      });
+      const { price: responsePrice, createdAt, ...rest } = response.data;
+      const newTransaction = {
+        ...rest,
+        price: responsePrice,
+        priceFormatted: priceFormatter(responsePrice),
+        dateFormatted: dateFormatter(new Date(createdAt ?? "")),
+      };
+
+      setTransactions((oldTransactions) => [
+        newTransaction,
+        ...oldTransactions,
+      ]);
     } catch {}
   }
 
@@ -40,7 +69,9 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   }, []);
 
   return (
-    <TransactionContext.Provider value={{ transactions, fetchTransactions }}>
+    <TransactionContext.Provider
+      value={{ transactions, fetchTransactions, createTransaction }}
+    >
       {children}
     </TransactionContext.Provider>
   );
