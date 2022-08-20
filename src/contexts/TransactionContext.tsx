@@ -1,73 +1,70 @@
-import { api } from "@/services/api";
-import { dateFormatter, priceFormatter } from "@/utils/formatter";
-import { ReactNode, useEffect, useState, useCallback } from "react";
-import { Transaction } from "transactions";
-import { createContext } from "use-context-selector";
+import { api } from '@/services/api'
+import { dateFormatter, priceFormatter } from '@/utils/formatter'
+import { ReactNode, useEffect, useState, useCallback } from 'react'
+import { Transaction } from 'transactions'
+import { createContext } from 'use-context-selector'
 
 interface TransactionContextType {
-  transactions: Transaction[];
-  fetchTransactions: (query?: string) => Promise<void>;
-  createTransaction: (transaction: Transaction) => Promise<void>;
+  transactions: Transaction[]
+  fetchTransactions: (query?: string) => Promise<void>
+  createTransaction: (transaction: Transaction) => Promise<void>
 }
 
 interface TransactionProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
-export const TransactionContext = createContext({} as TransactionContextType);
+export const TransactionContext = createContext({} as TransactionContextType)
 
 export function TransactionsProvider({ children }: TransactionProviderProps) {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([])
 
   const fetchTransactions = useCallback(async (query?: string) => {
     try {
-      const response = await api.get<Transaction[]>("/transactions", {
+      const response = await api.get<Transaction[]>('/transactions', {
         params: {
           q: query,
-          _sort: "createdAt",
-          _order: "desc",
+          _sort: 'createdAt',
+          _order: 'desc',
         },
-      });
+      })
 
       const parsedTransactions = response.data.map((data) => ({
         ...data,
         priceFormatted: priceFormatter(data.price),
-        dateFormatted: dateFormatter(new Date(data?.createdAt ?? "")),
-      }));
+        dateFormatted: dateFormatter(new Date(data?.createdAt ?? '')),
+      }))
 
-      setTransactions(parsedTransactions);
+      setTransactions(parsedTransactions)
     } catch {}
-  }, []);
+  }, [])
 
   const createTransaction = useCallback(async (transaction: Transaction) => {
-    const { category, description, price, type } = transaction;
+    const { category, description, price, type } = transaction
 
     try {
-      const response = await api.post<Transaction>("/transactions", {
+      const response = await api.post<Transaction>('/transactions', {
         category,
         description,
         price,
         type,
         createdAt: new Date(),
-      });
-      const { price: responsePrice, createdAt, ...rest } = response.data;
+      })
+      const { price: responsePrice, createdAt, ...rest } = response.data
       const newTransaction = {
         ...rest,
         price: responsePrice,
         priceFormatted: priceFormatter(responsePrice),
-        dateFormatted: dateFormatter(new Date(createdAt ?? "")),
-      };
+        dateFormatted: dateFormatter(new Date(createdAt ?? '')),
+      }
 
-      setTransactions((oldTransactions) => [
-        newTransaction,
-        ...oldTransactions,
-      ]);
+      setTransactions((oldTransactions) => [newTransaction, ...oldTransactions])
     } catch {}
-  }, []);
+  }, [])
 
   useEffect(() => {
-    fetchTransactions();
-  }, []);
+    fetchTransactions()
+  }, [fetchTransactions])
 
   return (
     <TransactionContext.Provider
@@ -75,5 +72,5 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
     >
       {children}
     </TransactionContext.Provider>
-  );
+  )
 }

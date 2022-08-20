@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   width: 100%;
@@ -11,4 +11,4 @@ export const Container = styled.section`
   gap: 2rem;
 
   margin-top: -5rem;
-`;
+`

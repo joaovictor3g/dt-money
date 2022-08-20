@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.form`
   display: flex;
@@ -8,12 +8,12 @@ export const Container = styled.form`
     flex: 1;
     border-radius: 6px;
     border: 0;
-    background: ${({ theme }) => theme["gray-900"]};
-    color: ${({ theme }) => theme["gray-300"]};
+    background: ${({ theme }) => theme['gray-900']};
+    color: ${({ theme }) => theme['gray-300']};
     padding: 1rem;
 
     &::placeholder {
-      color: ${({ theme }) => theme["gray-500"]};
+      color: ${({ theme }) => theme['gray-500']};
     }
   }
 
@@ -25,15 +25,15 @@ export const Container = styled.form`
     border: 0;
     padding: 1rem;
     background: transparent;
-    border: 1px solid ${({ theme }) => theme["green-300"]};
-    color: ${({ theme }) => theme["green-300"]};
+    border: 1px solid ${({ theme }) => theme['green-300']};
+    color: ${({ theme }) => theme['green-300']};
     font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
 
     &:not(:disabled):hover {
-      background: ${({ theme }) => theme["green-500"]};
-      border: 1px solid ${({ theme }) => theme["green-500"]};
+      background: ${({ theme }) => theme['green-500']};
+      border: 1px solid ${({ theme }) => theme['green-500']};
       color: ${({ theme }) => theme.white};
       transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     }
@@ -43,4 +43,4 @@ export const Container = styled.form`
       cursor: not-allowed;
     }
   }
-`;
+`

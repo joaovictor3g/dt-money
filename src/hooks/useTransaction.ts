@@ -1,11 +1,11 @@
-import { TransactionContext } from "@/contexts/TransactionContext";
-import { Transaction } from "transactions";
-import { useContextSelector } from "use-context-selector";
+import { TransactionContext } from '@/contexts/TransactionContext'
+import { Transaction } from 'transactions'
+import { useContextSelector } from 'use-context-selector'
 
 interface TransactionContextType {
-  transactions: Transaction[];
-  fetchTransactions: (query?: string) => Promise<void>;
-  createTransaction: (transaction: Transaction) => Promise<void>;
+  transactions: Transaction[]
+  fetchTransactions: (query?: string) => Promise<void>
+  createTransaction: (transaction: Transaction) => Promise<void>
 }
 
 export function useTransaction(ctxObservers: (keyof TransactionContextType)[]) {
@@ -14,11 +14,11 @@ export function useTransaction(ctxObservers: (keyof TransactionContextType)[]) {
       return {
         ...acc,
         [observer]: context[observer],
-      };
-    }, {}) as TransactionContextType;
+      }
+    }, {}) as TransactionContextType
 
-    return observers;
-  });
+    return observers
+  })
 
-  return ctxSelector;
+  return ctxSelector
 }

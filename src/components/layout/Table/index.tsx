@@ -1,9 +1,9 @@
-import { useTransaction } from "@/hooks/useTransaction";
-import { SearchForm } from "./SearchForm";
-import { Container, PriceHighlight, TransactionsTable } from "./styles";
+import { useTransaction } from '@/hooks/useTransaction'
+import { SearchForm } from './SearchForm'
+import { Container, PriceHighlight, TransactionsTable } from './styles'
 
 export function Table() {
-  const { transactions } = useTransaction(["transactions"]);
+  const { transactions } = useTransaction(['transactions'])
 
   return (
     <Container>
@@ -19,11 +19,11 @@ export function Table() {
                 </PriceHighlight>
               </td>
               <td>{transaction.category}</td>
-              <td>{String(transaction?.dateFormatted ?? "No date")}</td>
+              <td>{String(transaction?.dateFormatted ?? 'No date')}</td>
             </tr>
           ))}
         </tbody>
       </TransactionsTable>
     </Container>
-  );
+  )
 }
