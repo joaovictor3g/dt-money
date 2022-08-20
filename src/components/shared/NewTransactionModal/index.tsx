@@ -22,7 +22,7 @@ const newTransactionFormSchema = zod.object({
 type NewTransactionFormInputs = zod.infer<typeof newTransactionFormSchema>;
 
 export function NewTransactionModal() {
-  const { createTransaction } = useTransaction();
+  const { createTransaction } = useTransaction(["createTransaction"]);
 
   const {
     register,
@@ -38,7 +38,7 @@ export function NewTransactionModal() {
   });
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
-    createTransaction(data);
+    await createTransaction(data);
     reset();
   }
 

@@ -3,7 +3,7 @@ import { SearchForm } from "./SearchForm";
 import { Container, PriceHighlight, TransactionsTable } from "./styles";
 
 export function Table() {
-  const { transactions } = useTransaction();
+  const { transactions } = useTransaction(["transactions"]);
 
   return (
     <Container>

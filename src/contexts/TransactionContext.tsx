@@ -1,7 +1,8 @@
 import { api } from "@/services/api";
 import { dateFormatter, priceFormatter } from "@/utils/formatter";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Transaction } from "transactions";
+import { createContext } from "use-context-selector";
 
 interface TransactionContextType {
   transactions: Transaction[];

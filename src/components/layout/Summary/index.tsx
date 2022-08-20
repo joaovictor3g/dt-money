@@ -3,7 +3,7 @@ import { SummaryCard } from "../../shared/SummaryCard";
 import { Container } from "./styles";
 
 export function Summary() {
-  const { transactions } = useTransaction();
+  const { transactions } = useTransaction(["transactions"]);
 
   const summary = transactions.reduce(
     (acc, transaction) => {
