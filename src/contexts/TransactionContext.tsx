@@ -1,6 +1,6 @@
 import { api } from "@/services/api";
 import { dateFormatter, priceFormatter } from "@/utils/formatter";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState, useCallback } from "react";
 import { Transaction } from "transactions";
 import { createContext } from "use-context-selector";
 
@@ -19,7 +19,7 @@ export const TransactionContext = createContext({} as TransactionContextType);
 export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  async function fetchTransactions(query?: string) {
+  const fetchTransactions = useCallback(async (query?: string) => {
     try {
       const response = await api.get<Transaction[]>("/transactions", {
         params: {
@@ -37,9 +37,9 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
 
       setTransactions(parsedTransactions);
     } catch {}
-  }
+  }, []);
 
-  async function createTransaction(transaction: Transaction) {
+  const createTransaction = useCallback(async (transaction: Transaction) => {
     const { category, description, price, type } = transaction;
 
     try {
@@ -63,7 +63,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
         ...oldTransactions,
       ]);
     } catch {}
-  }
+  }, []);
 
   useEffect(() => {
     fetchTransactions();
