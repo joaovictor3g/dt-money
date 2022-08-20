@@ -10,8 +10,6 @@ interface TransactionContextType {
 
 export function useTransaction(ctxObservers: (keyof TransactionContextType)[]) {
   const ctxSelector = useContextSelector(TransactionContext, (context) => {
-    // return context[ctxObservers];
-
     const observers = ctxObservers.reduce((acc, observer) => {
       return {
         ...acc,
